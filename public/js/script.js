@@ -10,6 +10,20 @@ if(tourImages){
 }
 // End tour-images
 
+// alert-add-cart-success
+const alertAddCartSuccess = () => {
+    const elementAlert = document.querySelector("[alert-add-cart-success]");
+    console.log(elementAlert);
+    if(elementAlert){
+        elementAlert.classList.remove("alert-hidden");
+
+        setTimeout(() => {
+           elementAlert.classList.add("alert-hidden"); 
+        }, 3000);
+    }
+}
+// End alert-add-cart-success
+
 // Giỏ hàng
 const cart = localStorage.getItem("cart");
 if(!cart){
@@ -40,6 +54,8 @@ if(formAddToCart){
             }
 
             localStorage.setItem("cart", JSON.stringify(cart));
+
+            alertAddCartSuccess();
         }
     });
 }
