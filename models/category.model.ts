@@ -20,6 +20,7 @@ const Category = sequelize.define("Category", {
     },
     status: {
         type: DataTypes.STRING(20),
+        defaultValue: "active"
     },
     position: {
         type: DataTypes.INTEGER

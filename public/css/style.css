@@ -30,6 +30,7 @@
     color: #fff;
     text-align: center;
     padding: 10px;
+    margin-top: 100px;
   }
   /* End Footer */
   
@@ -171,3 +172,30 @@
   object-fit: cover;
 }
 /* End .card */
+
+/* Show password */
+.form-group.position-relative {
+  margin-bottom: 1.5rem; 
+  }
+  
+  .eye-icon {
+  position: absolute;
+  right: 10px; 
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem; 
+  color: #6c757d; 
+  cursor: pointer; 
+  transition: color 0.3s ease; 
+  margin-top: 15px;
+  }
+  
+  .eye-icon:hover {
+  color: #007bff; 
+  }
+  
+  a.forgotPass{
+  font-weight: 500;
+  color: green;
+  }
+  /* End Show password */

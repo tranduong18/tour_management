@@ -37,7 +37,8 @@ const Tour = sequelize.define("Tour", {
         type: DataTypes.INTEGER
     },
     status: {
-        type: DataTypes.STRING(20)
+        type: DataTypes.STRING(20),
+        defaultValue: "active"
     },
     position: {
         type: DataTypes.INTEGER

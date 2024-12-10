@@ -1,8 +1,9 @@
 extends ../../layouts/default.pug
 
 block main
+  h1(class="mb-4") Thông tin cá nhân
   if(user.fullName)
-    h1(class="mb-4") <b>#{user.fullName}</b>
+    div(class="mb-4") Họ và tên: <b>#{user.fullName}</b>
 
   if (user.avatar)
     div(class="mb-4")

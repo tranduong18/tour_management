@@ -26,6 +26,7 @@ const Account = sequelize.define("Account", {
     },
     status: {
         type: DataTypes.STRING(20),
+        defaultValue: "active"
     },
     deleted: {
         type: DataTypes.BOOLEAN,
