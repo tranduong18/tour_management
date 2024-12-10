@@ -37,6 +37,8 @@ router.patch(
     controller.editPatch
 );
 
+router.get("/detail/:id", controller.detail);
+
 router.patch("/delete/:id", controller.deletePatch);
 
 router.patch("/change-status/:statusChange/:id", controller.changeStatus);

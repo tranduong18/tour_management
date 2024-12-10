@@ -45,3 +45,33 @@ if (listButtonChangeStatus.length > 0) {
     });
 }
 // End Button Change Status
+
+// Upload Image
+const uploadImage = document.querySelector("[upload-image]");
+if (uploadImage) {
+    const uploadImageInput = uploadImage.querySelector("[upload-image-input]");
+    const imagePreviewContainer = uploadImage.querySelector(".image-preview-container");
+
+    uploadImageInput.addEventListener("change", () => {
+        const files = uploadImageInput.files;
+        if (files) {
+            imagePreviewContainer.innerHTML = ''; // Xóa toàn bộ ảnh cũ khi chọn ảnh mới
+
+            for (const file of files) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('image-preview');
+                    img.style.marginRight = '10px';
+                    imagePreviewContainer.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+}
+
+// End Upload Image

@@ -5,6 +5,7 @@ import sequelize from "./config/database";
 sequelize;
 import bodyParser from "body-parser";
 import methodOverride from 'method-override';
+import path from "path";
 
 import { adminRoutes } from "./routes/admin/index.route";
 import { routesClient } from "./routes/client/index.route";
@@ -25,6 +26,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Cấu hình method-override
 app.use(methodOverride('_method'));
+
+//tiny mce
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 

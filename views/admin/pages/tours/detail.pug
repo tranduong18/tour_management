@@ -1,0 +1,43 @@
+extends ../../layouts/default.pug
+
+block main
+  if (tour.title)
+    h1(class="mb-4") #{tour.title}
+
+  if (tour.code)
+    p(class="mb-4") Mã Code: #{tour.code}
+
+  if (tour.price)
+    div(class="mb-4") Giá: <b>#{tour.price.toLocaleString()} ₫</b>
+
+  if (tour.discount)
+    div(class="mb-4") Giảm giá: <b>#{tour.discount}%</b>
+
+  if (tour.price_special)
+    div(class="mb-4") Giá đặc biệt: <b>#{tour.price_special.toLocaleString()} ₫</b>
+
+  if (tour.stock)
+    div(class="mb-4") Còn lại: <b>#{tour.stock}</b>
+
+  if (tour.images)
+    div(class="mb-4")
+      img(
+        src=tour.image
+        style="width: 100px"
+      )
+
+  if (tour.status)
+    div(class="mb-4")
+      span Trạng thái: 
+      if (tour.status === "active")
+        span(class="badge badge-success") Hoạt động
+      else
+        span(class="badge badge-danger") Dừng hoạt động
+
+  if (tour.information)
+    div(class="mb-4") !{tour.information}
+
+  if (tour.position)
+    div(class="mb-4") Vị trí: <b>#{tour.position}</b>
+
+  

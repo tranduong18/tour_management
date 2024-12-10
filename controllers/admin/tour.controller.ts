@@ -231,3 +231,28 @@ export const changeStatus = async (req: Request, res: Response) => {
         code: 200
     })
 }
+
+// [GET] /admin/tours/detail/:id
+export const detail = async (req: Request, res: Response) => {
+    const id = req.params.id;
+
+    const tour = await Tour.findOne({
+        where: {
+            id: id
+        },
+        raw: true
+    });
+
+    if(tour["images"]){
+        const images = JSON.parse(tour["images"]);
+        tour["image"] = images[0];
+    }
+
+    tour["price_special"] = (tour["price"] * (1 - tour["discount"] / 100));
+
+
+    res.render("admin/pages/tours/detail", {
+        pageTitle: "Chi tiết tour",
+        tour: tour
+    })
+}
