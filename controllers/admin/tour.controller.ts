@@ -98,3 +98,136 @@ export const createPost = async (req: Request, res: Response) => {
 
     res.redirect(`/${systemConfig.prefixAdmin}/tours`);
 }
+
+// [GET] /admin/tours/edit/:id
+export const edit = async (req: Request, res: Response) => {
+    const idTour = req.params.id;
+
+    const tour = await Tour.findOne({
+        where: {
+            id: idTour
+        },
+        raw: true
+    });
+
+    const formattedTimeStart = tour["timeStart"] ? tour["timeStart"].toISOString().slice(0, 16) : '';
+    tour["formattedTimeStart"] = formattedTimeStart;
+
+
+    const tourCategory = await TourCategory.findOne({
+        where: {
+            tour_id: idTour
+        },
+        raw: true
+    });
+
+    const category = await Category.findOne({
+        where: {
+            id: tourCategory["category_id"],
+            deleted: false,
+            status: "active"
+        },
+        raw: true
+    })
+
+    const categories = await Category.findAll({
+        where: {
+            deleted: false,
+            status: "active"
+        },
+        raw: true
+    });
+
+    res.render("admin/pages/tours/edit", {
+        pageTitle: "Chỉnh sửa tour",
+        categories: categories,
+        tour: tour,
+        category: category
+    })
+}
+
+// [PATCH] /admin/tours/edit/:id
+export const editPatch = async (req: Request, res: Response) => {
+    const tourId = req.params.id;
+
+    if(req.body.position){
+        req.body.position = parseInt(req.body.position);
+    }
+    else{
+        const countTour = await Tour.count();
+        req.body.position = countTour + 1;
+    }
+
+    const slug = slugify(`${req.body.title}-${Date.now()}`, {
+        lower: true
+    });
+
+    const dataTour = {
+        title: req.body.title,
+        price: parseInt(req.body.price),
+        discount: parseInt(req.body.discount),
+        stock: parseInt(req.body.stock),
+        timeStart: req.body.timeStart,
+        position: req.body.position,
+        status: req.body.status,
+        slug: slug,
+        information: req.body.information,
+        schedule: req.body.schedule
+    };
+
+    if(req.body.images){
+        dataTour["images"] = JSON.stringify(req.body.images);
+    }
+
+    await Tour.update(dataTour, {
+        where: {
+            id: tourId
+        }
+    });
+
+    if(req.body.category_id){
+        await TourCategory.update({
+            category_id: parseInt(req.body.category_id)
+        }, {
+            where: {
+                tour_id: tourId
+            }
+        })
+    }
+
+    res.redirect(`/${systemConfig.prefixAdmin}/tours`);
+}
+
+// [PATCH] /admin/tours/delete/:id
+export const deletePatch = async (req: Request, res: Response) => {
+    const idTour = req.params.id;
+
+    await Tour.update({
+        deleted: true
+    }, {
+        where: {
+            id: idTour
+        }
+    });
+
+    res.json({
+        code: 200
+    })
+}
+
+// [PATCH] /admin/tours/change-status/:statusChange/:id
+export const changeStatus = async (req: Request, res: Response) => {
+    const { id, statusChange } = req.params;
+
+    await Tour.update({
+        status: statusChange
+    }, {
+        where: {
+            id: id
+        }
+    });
+
+    res.json({
+        code: 200
+    })
+}

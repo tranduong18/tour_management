@@ -4,7 +4,7 @@ block main
   h1(class="mb-4") #{pageTitle}
 
   form(
-      action=`/${prefixAdmin}/tours/create`
+      action=`/${prefixAdmin}/tours/edit/${tour.id}?_method=PATCH`
       method="POST"
       enctype="multipart/form-data"
     )
@@ -16,6 +16,7 @@ block main
           id="title"
           name="title"
           required
+          value=tour.title
         )
       div(class="form-group")
         label(for="category") Danh mục
@@ -25,9 +26,12 @@ block main
           class="form-control"
           required
         )
-          option(value="" disabled selected) -- Chọn danh mục --
+          option(value="" disabled) -- Chọn danh mục --
           each item in categories
-            option(value=item.id) #{item.title}
+            option(
+              value=item.id
+              selected=(item.id == category.id ? true : false)
+            ) #{item.title}
 
       div(class="form-group")
         label(for="images") Chọn nhiều ảnh
@@ -38,6 +42,7 @@ block main
           name="images"
           accept="image/*"
           multiple
+          upload-image-input
         )
         
       div(class="form-group")
@@ -47,8 +52,8 @@ block main
           class="form-control"
           id="price"
           name="price"
-          value="0"
           min="0"
+          value=tour.price
         )
       div(class="form-group")
         label(for="discount") % Giảm giá
@@ -57,7 +62,7 @@ block main
           class="form-control"
           id="discount"
           name="discount"
-          value="0"
+          value=tour.discount
           min="0"
         )
       div(class="form-group")
@@ -67,8 +72,9 @@ block main
           class="form-control"
           id="stock"
           name="stock"
-          value="0"
+          value=tour.stock
           min="0"
+
         )
       div(class="form-group")
         label(for="timeStart") Lịch khởi hành
@@ -77,7 +83,7 @@ block main
           class="form-control"
           id="timeStart"
           name="timeStart"
-          value="0"
+          value=tour.formattedTimeStart
           min="0"
           required
         )
@@ -88,7 +94,7 @@ block main
           id="information"
           name="information"
           textarea-mce
-        )
+        ) #{tour.information}
       div(class="form-group")
         label(for="schedule") Lịch trình tour
         textarea(
@@ -96,7 +102,7 @@ block main
           id="schedule"
           name="schedule"
           textarea-mce
-        )
+        ) #{tour.schedule}
         
       div(class="form-group")
         label(for="position") Vị trí
@@ -107,6 +113,7 @@ block main
           name="position"
           placeholder="Tự động tăng"
           min="1"
+          value=tour.position
         )
       div(class="form-group form-check form-check-inline")
         input(
@@ -115,7 +122,7 @@ block main
           id="statusActive"
           name="status"
           value="active"
-          checked
+          checked=(tour.status == "active" ? true : false)
         )
         label(for="statusActive" class="form-check-label") Hoạt động
       div(class="form-group form-check form-check-inline")
@@ -125,10 +132,11 @@ block main
           id="statusInActive"
           name="status"
           value="inactive"
+          checked=(tour.status == "inactive" ? true : false)
         )
         label(for="statusInActive" class="form-check-label") Dừng hoạt động
       div(class="form-group")
         button(
           type="submit"
           class="btn btn-primary"
-        ) Tạo mới
+        ) Cập nhật

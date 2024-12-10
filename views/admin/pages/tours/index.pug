@@ -51,15 +51,18 @@ block main
                 td #{item.stock}
                 td
                   if (item.status === "active")
-                    a(
-                      href="javascript:;"
-                      class="badge badge-success"
-                    ) Hoạt động
+                    button(
+                        link=`/${prefixAdmin}/tours/change-status/inactive/${item.id}`
+                        class="badge badge-success"
+                        button-change-status
+                      ) Hoạt động
                   else
-                    a(
-                      href="javascript:;"
-                      class="badge badge-danger"
-                    ) Dừng hoạt động
+                    button(
+                        link=`/${prefixAdmin}/tours/change-status/active/${item.id}`
+                        class="badge badge-danger"
+                        button-change-status
+                      ) Dừng hoạt động
+                      
                 td #{item.position}
                 td
                   a(
@@ -72,6 +75,5 @@ block main
                   ) Sửa
                   button(
                     class="btn btn-danger btn-sm ml-1"
-                    button-delete
-                    data-id=item.id
+                    button-delete=`/${prefixAdmin}/tours/delete/${item.id}`
                   ) Xóa

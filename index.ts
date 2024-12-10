@@ -4,6 +4,7 @@ dotenv.config();
 import sequelize from "./config/database";
 sequelize;
 import bodyParser from "body-parser";
+import methodOverride from 'method-override';
 
 import { adminRoutes } from "./routes/admin/index.route";
 import { routesClient } from "./routes/client/index.route";
@@ -21,6 +22,9 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Cấu hình method-override
+app.use(methodOverride('_method'));
 
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
