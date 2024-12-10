@@ -81,3 +81,52 @@ export const logout = async (req: Request, res: Response) => {
     res.clearCookie("tokenUser");
     res.redirect("/user/login");
 }
+
+// [GET] /user/profile
+export const profile = async (req: Request, res: Response) => {
+    res.render("client/pages/user/profile", {
+        pageTitle: "Thông tin cá nhân",
+    });
+}
+
+// [GET] /user/profile/edit
+export const editProfile = async (req: Request, res: Response) => {
+    res.render("client/pages/user/editProfile", {
+        pageTitle: "Sửa thông tin cá nhân",
+    });
+}
+
+// [PATCH] /user/profile/edit
+export const editPatch = async (req: Request, res: Response) => {
+    console.log(req.body);
+    await User.update(req.body, {
+        where: {
+            id: res.locals.user.id
+        }
+    });
+
+    res.redirect("back");
+}
+
+// [GET] /user/profile/changePassword
+export const changePassword = async (req: Request, res: Response) => {
+    res.render("client/pages/user/change-password", {
+        pageTitle: "Đổi mật khẩu"
+    });
+}
+
+// [PATCH] /user/profile/changePassword
+export const changePassPatch = async (req: Request, res: Response) => {
+    const password = req.body.password;
+    const tokenUser = req.cookies.tokenUser;
+
+    await User.update({
+        password: md5(password)
+    }, {
+        where: {
+            tokenUser: tokenUser
+        }
+    })
+
+    res.redirect("/user/profile");
+}

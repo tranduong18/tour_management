@@ -24,6 +24,9 @@ const User = sequelize.define("User", {
     tokenUser: {
         type: DataTypes.STRING(255)
     },
+    address: {
+        type: DataTypes.STRING(200)
+    },
     avatar: {
         type: DataTypes.STRING(500)
     },
