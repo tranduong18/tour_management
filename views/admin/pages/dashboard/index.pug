@@ -1,0 +1,53 @@
+extends ../../layouts/default.pug
+
+block main
+  h1 Trang tổng quan
+
+  .row.mt-4
+    .col-12
+      .card.mb-4
+        .card-header Thông tin tài khoản
+        .card-body
+          if(account.avatar)
+            img(
+              src=account.avatar
+              style="height: 100px;margin-bottom: 15px;"
+            )
+          if(account.fullName)
+            p Họ tên: <b>#{account.fullName}</b>
+          if(account.email)
+            p Email: <b>#{account.email}</b>
+          if(account.phone)
+            p Số điện thoại: <b>#{account.phone}</b>
+
+    .col-6
+      .card.mb-4
+        .card-header Danh mục tour
+        .card-body
+          p Số lượng: <b>#{statistic.category.total}</b>
+          p Hoạt động: <b>#{statistic.category.active}</b>
+          p Dừng hoạt động: <b>#{statistic.category.inactive}</b>
+
+    .col-6
+      .card.mb-4
+        .card-header Tour du lịch
+        .card-body
+          p Số lượng: <b>#{statistic.tour.total}</b>
+          p Hoạt động: <b>#{statistic.tour.active}</b>
+          p Dừng hoạt động: <b>#{statistic.tour.inactive}</b>
+
+    .col-6
+      .card.mb-4
+        .card-header Tài khoản admin
+        .card-body
+          p Số lượng: <b>#{statistic.account.total}</b>
+          p Hoạt động: <b>#{statistic.account.active}</b>
+          p Dừng hoạt động: <b>#{statistic.account.inactive}</b>
+
+    .col-6
+      .card.mb-4
+        .card-header Tài khoản client
+        .card-body
+          p Số lượng: <b>#{statistic.user.total}</b>
+          p Hoạt động: <b>#{statistic.user.active}</b>
+          p Dừng hoạt động: <b>#{statistic.user.inactive}</b>
