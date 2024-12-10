@@ -49,7 +49,7 @@
   /* End Sider */
   
   /* Show Alert */
-  [show-alert] {
+  /* [show-alert] {
     position: fixed;
     top: 70px;
     right: 15px;
@@ -82,7 +82,7 @@
     font-weight: 600;
     border-radius: 50%;
     cursor: pointer;
-  }
+  } */
   /* End Show Alert */
   
   /* Image Preview */
@@ -99,3 +99,25 @@
     display: none;
   } */
   /* End Image Preview */
+
+  /* Show password */
+.form-group.position-relative {
+  margin-bottom: 1.5rem; 
+  }
+  
+  .eye-icon {
+  position: absolute;
+  right: 10px; 
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem; 
+  color: #6c757d; 
+  cursor: pointer; 
+  transition: color 0.3s ease; 
+  margin-top: 15px;
+  }
+  
+  .eye-icon:hover {
+  color: #007bff; 
+  }
+  /* End Show password */

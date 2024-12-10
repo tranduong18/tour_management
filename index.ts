@@ -6,6 +6,8 @@ sequelize;
 import bodyParser from "body-parser";
 import methodOverride from 'method-override';
 import path from "path";
+import cookieParser from "cookie-parser";
+import session from "express-session";
 
 import { adminRoutes } from "./routes/admin/index.route";
 import { routesClient } from "./routes/client/index.route";
@@ -18,6 +20,11 @@ app.set("views", "./views");
 app.set("view engine", "pug");
 
 app.use(express.static("public"));
+
+// Flash
+app.use(cookieParser('HHKALKS'));
+app.use(session({ cookie: { maxAge: 60000 }}));
+// End Flash
 
 // parse application/json
 app.use(bodyParser.json());

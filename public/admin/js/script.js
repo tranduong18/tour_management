@@ -75,3 +75,37 @@ if (uploadImage) {
 }
 
 // End Upload Image
+
+// Toggle Password
+const passInput = document.querySelector("#passwordInput");
+if(passInput){
+    const buttonTogglePass = document.querySelector("#togglePassword");
+    const eyeIcon = buttonTogglePass.querySelector("[icon]");
+
+    if (buttonTogglePass) {
+        buttonTogglePass.addEventListener("click", () => {
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        });
+    }
+}
+// End Toggle Password
+
+// show-alert
+const showAlert = document.querySelector("[show-alert]");
+if(showAlert){
+    let time = showAlert.getAttribute("show-alert") || 3000;
+    time = parseInt(time);
+
+    setTimeout(() => {
+        showAlert.classList.add("hidden");
+    }, time);
+}
+// End show-alert
