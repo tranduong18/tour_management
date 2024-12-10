@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Order from "../../models/order.model";
 import Tour from "../../models/tour.model";
 import OrderItem from "../../models/order-item.model";
+import moment from "moment";
 
 import { generateOrderCode } from "../../helpers/generate.helper";
 
@@ -74,6 +75,8 @@ export const success = async (req: Request, res: Response) => {
         },
         raw: true
     });
+
+    order["createdAtFormat"] = moment(order["createdAt"]).format("DD/MM/YY HH:mm:ss")
 
     const ordersItem = await OrderItem.findAll({
         where: {

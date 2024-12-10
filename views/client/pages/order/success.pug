@@ -7,7 +7,6 @@ block main
       .col-12
         div(class="alert alert-success") Chúc mừng bạn đã đặt hàng thành công! Mã đơn hàng của bạn là <b>#{order.code}</b>.
 
-
     .row
       .col-12
         +box-head("Thông tin khách hàng")
@@ -25,7 +24,7 @@ block main
               td #{order.note}
             tr
               td Ngày đặt
-              td #{order.createdAt}
+              td #{order.createdAtFormat}
 
 
     .row
@@ -49,8 +48,8 @@ block main
                   img(src=item.image, alt=item.title width="80px")
                 td
                   a(href=`/tours/detail/${item.slug}`) #{item.title}
-                td #{item.price_special.toLocaleString()}đ
+                td #{item.price_special.toLocaleString()} đ
                 td #{item.quantity}
-                td #{item.total.toLocaleString()}đ
+                td #{item.total.toLocaleString()} đ
         
         h5(class="text-right mb-4") Tổng đơn hàng: #{total.toLocaleString()}đ
