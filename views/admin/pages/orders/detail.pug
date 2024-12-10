@@ -1,0 +1,13 @@
+extends ../../layouts/default.pug
+
+block main
+  h1(class="mb-4") Chi tiết đơn hàng
+  
+  div(class="mb-4") Họ tên: <b>#{order.fullName}</b>
+  div(class="mb-4") Số điện thoại: <b>#{order.phone}</b>
+  if(order.note)
+    div(class="mb-4") Ghi chú: <b>#{order.note}</b>
+
+  if (order.status)
+    div(class="mb-4") Trạng thái: <b> #{order.status} </b>
+

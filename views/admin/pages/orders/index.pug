@@ -1,0 +1,52 @@
+extends ../../layouts/default.pug
+
+block main
+  h1(class="mb-4") Quản lý đơn hàng
+
+  .card.mb-3
+    .card-header Danh sách
+    .card-body
+      
+      table.table.table-hover.table-sm
+        thead
+          tr
+            th STT
+            th Code
+            th Họ tên
+            th Số điện thoại
+            th Ghi chú
+            
+            th Trạng thái
+            th Ngày tạo
+            th Hành động
+
+        tbody
+          each item, index in orders
+            tr 
+              td #{index+1}
+              td #{item.code}
+              td #{item.fullName}
+              td #{item.phone}
+              td #{item.note}
+              
+              td
+                select(
+                  class="form-control"
+                  style="width: 180px;"
+                  data-order-id = item.id
+                  orderStatus = `/${prefixAdmin}/orders/changeStatus/${item.id}`
+                )
+                  option(value="initial" selected=item.status === "initial") Initial
+                  option(value="success" selected=item.status === "success") Success
+                  
+              td #{item.createdAtFormat}
+              td
+                a(
+                  class="btn btn-info btn-sm"
+                  href=`/${prefixAdmin}/orders/detail/${item.id}`
+                ) Chi tiết
+                
+                button(
+                  class="btn btn-danger btn-sm ml-1"
+                  button-delete=`/${prefixAdmin}/orders/delete/${item.id}`
+                ) Xóa
