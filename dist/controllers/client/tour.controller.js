@@ -16,6 +16,7 @@ exports.detail = exports.index = void 0;
 const database_1 = __importDefault(require("../../config/database"));
 const sequelize_1 = require("sequelize");
 const tour_model_1 = __importDefault(require("../../models/tour.model"));
+const moment_1 = __importDefault(require("moment"));
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const slugCategory = req.params.slugCategory;
     const tours = yield database_1.default.query(`
@@ -62,7 +63,7 @@ const detail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     tour["price_special"] = (1 - tour["discount"] / 100) * tour["price"];
     tour["price_special"] = parseInt(tour["price_special"]);
-    console.log(tour);
+    tour["timeStartFormat"] = (0, moment_1.default)(tour["timeStart"]).format("DD/MM/YY HH:mm:ss");
     res.render("client/pages/tours/detail", {
         pageTitle: "Chi tiết tour",
         tour: tour

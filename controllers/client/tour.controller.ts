@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import sequelize from "../../config/database";
 import { QueryTypes } from "sequelize";
 import Tour from "../../models/tour.model";
+import moment from "moment";
 
 // [GET] /tours/:slugCategory
 export const index = async (req: Request, res: Response) => {
@@ -59,7 +60,7 @@ export const detail = async (req: Request, res: Response) => {
     tour["price_special"] = (1 - tour["discount"]/100) * tour["price"];
     tour["price_special"] = parseInt(tour["price_special"]);
 
-    console.log(tour);
+    tour["timeStartFormat"] = moment(tour["timeStart"]).format("DD/MM/YY HH:mm:ss")
 
     res.render("client/pages/tours/detail", {
         pageTitle: "Chi tiết tour",
